@@ -1,24 +1,13 @@
-console.log('Try npm run lint/fix!');
+export {Gun} from './core/gun';
+export {GunProps, GunTyping, GunValues} from './core/gun-typing';
+export {GunUnit, GunUnitArgs, GunUnitFire} from './core/gun-unit';
+export {CompiledGun} from './core/compiled-gun';
+export {CompiledGunUnit} from './core/compiled-gun-unit';
 
-const longString =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
+export {Parallel} from './core/guns/parallel';
+export {Repeat} from './core/guns/repeat';
+export {Sequential} from './core/guns/sequential';
+export {Terminal} from './core/guns/terminal';
+export {Wait} from './core/guns/wait';
 
-const trailing = 'Semicolon';
-
-const why = 'am I tabbed?';
-
-export function doSomeStuff(
-  withThis: string,
-  andThat: string,
-  andThose: string[]
-) {
-  //function on one line
-  if (!andThose.length) {
-    return false;
-  }
-  console.log(withThis);
-  console.log(andThat);
-  console.dir(andThose);
-  return;
-}
-// TODO: more examples
+export {GunTrainFire, GunTrainState, TGunTrainState} from './components/gun-train-state';
