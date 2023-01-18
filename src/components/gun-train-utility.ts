@@ -1,8 +1,23 @@
 export class TGunTrainUtility {
+  /**
+   * @example
+   * ```ts
+   * [...TGunTrainUtility.range(3, 6)] // [3, 4, 5]
+   * ```
+   */
   static range(start: number, stop: number): Iterable<number> {
     return rangeRaw(start, stop);
   }
 
+  /**
+   * @example
+   * ```ts
+   * TGunTrainUtility.calcLinearValues(3, 0, 9) // [0, 3, 6]
+   * TGunTrainUtility.calcLinearValues(3, 0, 9, "start") // [0, 3, 6]
+   * TGunTrainUtility.calcLinearValues(3, 0, 9, "end") // [3, 6, 9]
+   * TGunTrainUtility.calcLinearValues(3, 0, 9, "center") // [1.5, 4.5, 7.5]
+   * ```
+   */
   static calcLinearValues(
     count: number,
     start: number,
@@ -16,6 +31,14 @@ export class TGunTrainUtility {
     return [...this.range(0, count)].map(i => i * step + offset);
   }
 
+  /**
+   * @example
+   * ```ts
+   * TGunTrainUtility.calcNWayAngles(3, 180) // [-60, 0, 60]
+   * TGunTrainUtility.calcNWayAngles(3, 180, "around") // [-60, 0, 60]
+   * TGunTrainUtility.calcNWayAngles(3, 180, "between") // [-90, 0, 90]
+   * ```
+   */
   static calcNWayAngles(wayCount: number, totalAngleRad: number, justify: 'around' | 'between' = 'around'): number[] {
     if (wayCount <= 0) return [];
     if (wayCount === 1) return [0];
@@ -26,24 +49,69 @@ export class TGunTrainUtility {
     return [...this.range(0, wayCount)].map(i => i * distanceAngleRad + startAngleRad);
   }
 
-  static calcEveryDirectionAngles(wayCount: number, justify: 'start' | 'end' | 'center' = 'start'): number[] {
-    return this.calcLinearValues(wayCount, 0, 2 * Math.PI, justify);
+  /**
+   * @example
+   * ```ts
+   * const PI = Math.PI;
+   * TGunTrainUtility.calcEveryDirectionAngles(4, 0) // [0, PI*(1/2), PI*(2/2), PI*(3/2)]
+   * TGunTrainUtility.calcEveryDirectionAngles(4, 0, "start") // [0, PI*(1/2), PI*(2/2), PI*(3/2)]
+   * TGunTrainUtility.calcEveryDirectionAngles(4, -PI) // [-PI*(2/2), -PI*(1/2), 0, PI*(1/2)]
+   * TGunTrainUtility.calcEveryDirectionAngles(4, 0, "end") // [PI*(1/2), PI*(2/2), PI*(3/2), PI*(4/2)]
+   * TGunTrainUtility.calcEveryDirectionAngles(4, 0, "center")  // [PI*(1/4), PI*(3/4), PI*(5/4), PI*(7/4)]
+   * ```
+   */
+  static calcEveryDirectionAngles(
+    wayCount: number,
+    offset: number,
+    justify: 'start' | 'end' | 'center' = 'start'
+  ): number[] {
+    return this.calcLinearValues(wayCount, offset, offset + 2 * Math.PI, justify);
   }
 
+  /**
+   * @example
+   * ```ts
+   * TGunTrainUtility.lerp(0, 10, 20) // 10
+   * TGunTrainUtility.lerp(0.5, 10, 20) // 15
+   * TGunTrainUtility.lerp1, 10, 20) // 20
+   * ```
+   */
   static lerp(r: number, min: number, max: number): number {
     return r * max + (1 - r) * min;
   }
 
+  /**
+   * @example
+   * ```ts
+   * const PI = Math.PI;
+   * TGunTrainUtility.toRadians(90) // PI / 2
+   * ```
+   */
   static toRadians(degrees: number): number {
     return (degrees / 180) * Math.PI;
   }
 
+  /**
+   * @example
+   * ```ts
+   * const PI = Math.PI;
+   * TGunTrainUtility.toDegrees(PI / 2) // 90
+   * ```
+   */
   static toDegrees(radians: number): number {
     return (radians / Math.PI) * 180;
   }
 
   /**
    * Cartesian product.
+   *
+   * @example
+   * ```ts
+   * const ary1 = [0, 1, 2];
+   * const ary2 = ["a", "b"];
+   * const prod = TGunTrainUtility.productArray(ary1, ary2);
+   * [...prod] // [[0, "a"], [0, "b"], [1, "a"], [1, "b"], [2, "a"], [2, "b"]]
+   * ```
    */
   static productArray: ProductArray = (<T1, T2, T3, T4>(ary1: T1[], ary2?: T2[], ary3?: T3[], ary4?: T4[]) => {
     if (ary2 === undefined) {
