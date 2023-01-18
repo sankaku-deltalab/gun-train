@@ -10,7 +10,7 @@ export type CompiledGunUnit<Typing extends GunTyping> = {
 };
 
 export type CompiledGunUnitFire<Typing extends GunTyping> = {
-  fireTimeMs: number;
+  globalFireTimeMs: number;
   values: GunValues<Typing>;
 };
 
@@ -23,15 +23,15 @@ export class TCompiledGunUnit {
     const fireArgsArray = this.calcGunUnitArgsArray(gunUnit, props, args);
     const nestedFires = fireArgsArray.map(({localArgs, globalFireTimeMs}) => ({
       fires: gunUnit.gunUnit.calcValues(props, localArgs),
-      fireTimeMs: globalFireTimeMs,
+      globalFireTimeMs,
     }));
 
     // NOTE: I don't use `Array.flat` because it is too slow.
     const compiledFires: CompiledGunUnitFire<Typing>[] = [];
     for (const fires of nestedFires) {
-      const fireTimeMs = fires.fireTimeMs;
+      const globalFireTimeMs = fires.globalFireTimeMs;
       for (const fire of fires.fires) {
-        compiledFires.push({fireTimeMs, values: fire.values});
+        compiledFires.push({globalFireTimeMs, values: fire.values});
       }
     }
     return compiledFires;
@@ -63,7 +63,7 @@ export class TCompiledGunUnit {
     }));
 
     return allLocalArgs
-      .map(a => ({localArgs: a, globalFireTimeMs: a.fireTimeMs + args.globalStartTimeMs}))
+      .map(a => ({localArgs: a, globalFireTimeMs: a.fireTimeMs + gunUnit.startTimeMs}))
       .filter(({globalFireTimeMs: t}) => args.globalStartTimeMs <= t && t < args.globalStopTimeMs);
   }
 }

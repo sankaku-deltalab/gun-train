@@ -33,7 +33,7 @@ export class TGunTrainState {
     const stopTimeMs = startTimeMs + args.deltaMs;
     const compiledFires = TCompiledGun.calcFires(compiledGun, props, {startTimeMs, stopTimeMs});
     const fires = compiledFires.map<GunTrainFire<Typing>>(f => ({
-      elapsedTimeMs: f.fireTimeMs - startTimeMs,
+      elapsedTimeMs: f.globalFireTimeMs - startTimeMs,
       values: f.values,
     }));
 

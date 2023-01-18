@@ -43,10 +43,10 @@ const compiledGunFixture = (): {
       },
     },
     {
-      startTimeMs: 0,
-      stopTimeMs: 30,
+      startTimeMs: 3,
+      stopTimeMs: 13,
       gunUnitMethods: {
-        calcFireTimes: jest.fn(() => 10),
+        calcFireTimes: jest.fn(() => 5),
         calcValues: jest.fn((props, args) => [{values: {idx: 2, props, args}}]),
       },
     },
@@ -68,29 +68,21 @@ describe('TCompiledGun', () => {
 
       // When
       const props = {a: 1};
-      const args = {startTimeMs: 0, stopTimeMs: 5};
+      const args = {startTimeMs: 1, stopTimeMs: 5};
       const fires = TCompiledGun.calcFires(compiledGun, props, args);
 
       // Then
       expect(fires[0]).toEqual({
-        fireTimeMs: 0,
-        values: {idx: 0, props, args: {fireTimeMs: 0, firingDurationMs: 10, firedCount: 0, firingTimes: 5}},
-      });
-      expect(fires[1]).toEqual({
-        fireTimeMs: 2,
+        globalFireTimeMs: 2,
         values: {idx: 0, props, args: {fireTimeMs: 2, firingDurationMs: 10, firedCount: 1, firingTimes: 5}},
       });
-      expect(fires[2]).toEqual({
-        fireTimeMs: 4,
+      expect(fires[1]).toEqual({
+        globalFireTimeMs: 4,
         values: {idx: 0, props, args: {fireTimeMs: 4, firingDurationMs: 10, firedCount: 2, firingTimes: 5}},
       });
-      expect(fires[3]).toEqual({
-        fireTimeMs: 0,
-        values: {idx: 2, props, args: {fireTimeMs: 0, firingDurationMs: 30, firedCount: 0, firingTimes: 10}},
-      });
-      expect(fires[4]).toEqual({
-        fireTimeMs: 3,
-        values: {idx: 2, props, args: {fireTimeMs: 3, firingDurationMs: 30, firedCount: 1, firingTimes: 10}},
+      expect(fires[2]).toEqual({
+        globalFireTimeMs: 3,
+        values: {idx: 2, props, args: {fireTimeMs: 0, firingDurationMs: 10, firedCount: 0, firingTimes: 5}},
       });
     });
   });
