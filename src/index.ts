@@ -2,6 +2,7 @@
 export type {Gun} from './core/gun';
 export type {GunProps, GunTyping, GunValues} from './core/gun-typing';
 export type {GunUnit, GunUnitArgs, GunUnitFire} from './core/gun-unit';
+export {TGun} from './core/gun';
 export {TGunFactory} from './components/gun-factory';
 export {TGunTrainUtility} from './components/gun-train-utility';
 
