@@ -45,13 +45,13 @@ export class TCompiledGunUnit {
     localArgs: GunUnitArgs;
     globalFireTimeMs: number;
   }[] {
-    const firingCounts = gunUnit.gunUnit.calcFireTimes(props);
-    if (firingCounts <= 0) return [];
+    const firingTimes = gunUnit.gunUnit.calcFireTimes(props);
+    if (firingTimes <= 0) return [];
 
     const firingDurationMs = gunUnit.gunUnit.durationMs;
-    const interval = firingDurationMs / firingCounts;
+    const interval = firingDurationMs / firingTimes;
 
-    const firingCountArray = Array(firingCounts)
+    const firingCountArray = Array(firingTimes)
       .fill(0)
       .map((_, i) => i);
 
@@ -59,7 +59,7 @@ export class TCompiledGunUnit {
       fireTimeMs: i * interval,
       firingDurationMs,
       firedCount: i,
-      firingCounts,
+      firingTimes,
     }));
 
     return allLocalArgs

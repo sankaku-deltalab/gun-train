@@ -4,7 +4,7 @@ export type GunUnitArgs = {
   fireTimeMs: number;
   firingDurationMs: number;
   firedCount: number;
-  firingCounts: number;
+  firingTimes: number;
 };
 
 export type GunUnitFire<Typing extends GunTyping> = {
