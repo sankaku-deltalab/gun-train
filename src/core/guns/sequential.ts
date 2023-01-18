@@ -12,11 +12,11 @@ export class Sequential<Typing extends GunTyping> implements Gun<Typing> {
     let currentStartTime = startTimeMs;
 
     // NOTE: I don't use `Array.flat` because it is too slow.
-    const compiledGunUnits: CompiledGunUnit<Typing>[] = [];
+    let compiledGunUnits: CompiledGunUnit<Typing>[] = [];
     for (const gun of this.subGuns) {
       const {stopTimeMs: subStopTimeMs, compiledGunUnits: subCompiledGuns} = gun.compile(currentStartTime);
       currentStartTime = subStopTimeMs;
-      compiledGunUnits.concat(subCompiledGuns);
+      compiledGunUnits = compiledGunUnits.concat(subCompiledGuns);
     }
 
     return {
