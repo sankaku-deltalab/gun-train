@@ -12,11 +12,11 @@ export class Repeat<Typing extends GunTyping> implements Gun<Typing> {
     let currentStartTime = startTimeMs;
 
     // NOTE: I don't use `Array.flat` because it is too slow.
-    const compiledGunUnits: CompiledGunUnit<Typing>[] = [];
+    let compiledGunUnits: CompiledGunUnit<Typing>[] = [];
     for (let i = 0; i < this.counts; i++) {
       const {stopTimeMs: subStopTimeMs, compiledGunUnits: subCompiledGuns} = this.subGun.compile(currentStartTime);
       currentStartTime = subStopTimeMs;
-      compiledGunUnits.concat(subCompiledGuns);
+      compiledGunUnits = compiledGunUnits.concat(subCompiledGuns);
     }
 
     return {
