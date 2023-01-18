@@ -1,13 +1,12 @@
-export {Gun} from './core/gun';
-export {GunProps, GunTyping, GunValues} from './core/gun-typing';
-export {GunUnit, GunUnitArgs, GunUnitFire} from './core/gun-unit';
-export {CompiledGun} from './core/compiled-gun';
-export {CompiledGunUnit} from './core/compiled-gun-unit';
+// For build gun
+export type {Gun} from './core/gun';
+export type {GunProps, GunTyping, GunValues} from './core/gun-typing';
+export type {GunUnit, GunUnitArgs, GunUnitFire} from './core/gun-unit';
+export {TGunFactory} from './components/gun-factory';
 
-export {Parallel} from './core/guns/parallel';
-export {Repeat} from './core/guns/repeat';
-export {Sequential} from './core/guns/sequential';
-export {Terminal} from './core/guns/terminal';
-export {Wait} from './core/guns/wait';
+// For type compiled gun object
+export type {CompiledGun} from './core/compiled-gun';
 
-export {GunTrainFire, GunTrainState, TGunTrainState} from './components/gun-train-state';
+// For run gun
+export type {GunTrainFire, GunTrainState} from './components/gun-train-state';
+export {TGunTrainState} from './components/gun-train-state';

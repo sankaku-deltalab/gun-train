@@ -1,4 +1,6 @@
-import {CompiledGunUnit, GunTyping, Gun, Sequential} from '../../../src';
+import {GunTyping, Gun} from '../../../src';
+import {CompiledGunUnit} from '../../../src/core/compiled-gun-unit';
+import {Sequential} from '../../../src/core/guns/sequential';
 
 const genSubGun = <Typing extends GunTyping>(opt: {
   durationMs: number;

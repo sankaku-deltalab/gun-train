@@ -1,4 +1,4 @@
-import {Wait} from '../../../src';
+import {Wait} from '../../../src/core/guns/wait';
 
 describe('Wait', () => {
   test('deal waited stop time and empty compiled units at compile', () => {

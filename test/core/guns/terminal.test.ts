@@ -1,5 +1,5 @@
-import {GunTyping, Terminal} from '../../../src';
-import {GunUnit} from '../../../src/core/gun-unit';
+import {GunTyping, GunUnit} from '../../../src';
+import {Terminal} from '../../../src/core/guns/terminal';
 
 const genGunUnit = <Typing extends GunTyping>(durationMs: number): GunUnit<Typing> => {
   return {
