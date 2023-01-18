@@ -10,11 +10,11 @@ export class Parallel<Typing extends GunTyping> implements Gun<Typing> {
     compiledGunUnits: CompiledGunUnit<Typing>[];
   } {
     // NOTE: I don't use `Array.flat` because it is too slow.
-    const compiledGunUnits: CompiledGunUnit<Typing>[] = [];
+    let compiledGunUnits: CompiledGunUnit<Typing>[] = [];
     let maxStopTimeMs = startTimeMs;
     for (const gun of this.subGuns) {
       const {stopTimeMs: subStopTimeMs, compiledGunUnits: subCompiledGuns} = gun.compile(startTimeMs);
-      compiledGunUnits.concat(subCompiledGuns);
+      compiledGunUnits = compiledGunUnits.concat(subCompiledGuns);
       maxStopTimeMs = Math.max(maxStopTimeMs, subStopTimeMs);
     }
 
