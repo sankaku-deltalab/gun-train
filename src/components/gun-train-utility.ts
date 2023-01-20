@@ -12,10 +12,10 @@ export class TGunTrainUtility {
   /**
    * @example
    * ```ts
-   * TGunTrainUtility.calcLinearValues(3, 0, 9) // [0, 3, 6]
-   * TGunTrainUtility.calcLinearValues(3, 0, 9, "start") // [0, 3, 6]
-   * TGunTrainUtility.calcLinearValues(3, 0, 9, "end") // [3, 6, 9]
-   * TGunTrainUtility.calcLinearValues(3, 0, 9, "center") // [1.5, 4.5, 7.5]
+   * TGunTrainUtility.calcLinearValues(3, 1, 10) // [1, 4, 7]
+   * TGunTrainUtility.calcLinearValues(3, 1, 10, "start") // [1, 4, 7]
+   * TGunTrainUtility.calcLinearValues(3, 1, 10, "end") // [4, 7, 10]
+   * TGunTrainUtility.calcLinearValues(3, 1, 10, "center") // [2.5, 5.5, 8.5]
    * ```
    */
   static calcLinearValues(
@@ -28,7 +28,7 @@ export class TGunTrainUtility {
 
     const step = (end - start) / count;
     const offset = justify === 'start' ? 0 : justify === 'end' ? step : step / 2;
-    return [...this.range(0, count)].map(i => i * step + offset);
+    return [...this.range(0, count)].map(i => i * step + start + offset);
   }
 
   /**
