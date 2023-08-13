@@ -1,4 +1,4 @@
-export {GunTrain, Fire} from './core/gun-train';
+export * from './core/gun-train';
 export * from './core/gun-typing';
 export * from './core/gun-unit';
 export * from './core/gun';
