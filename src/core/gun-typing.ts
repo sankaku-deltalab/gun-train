@@ -1,7 +1,7 @@
 export type GunTyping = {
-  props: unknown;
+  context: unknown;
   values: unknown;
 };
 
-export type GunProps<GT extends GunTyping> = GT['props'];
-export type GunValues<GT extends GunTyping> = GT['values'];
+export type GunContext<GT extends GunTyping> = GT['context'];
+export type FireValues<GT extends GunTyping> = GT['values'];

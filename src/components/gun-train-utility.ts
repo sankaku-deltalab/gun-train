@@ -1,11 +1,11 @@
-export class TGunTrainUtility {
+export namespace GunTrainUtility {
   /**
    * @example
    * ```ts
    * [...TGunTrainUtility.range(3, 6)] // [3, 4, 5]
    * ```
    */
-  static range(start: number, stop: number): Iterable<number> {
+  export function range(start: number, stop: number): Iterable<number> {
     return rangeRaw(start, stop);
   }
 
@@ -18,7 +18,7 @@ export class TGunTrainUtility {
    * TGunTrainUtility.calcLinearValues(3, 1, 10, "center") // [2.5, 5.5, 8.5]
    * ```
    */
-  static calcLinearValues(
+  export function calcLinearValues(
     count: number,
     start: number,
     end: number,
@@ -28,7 +28,7 @@ export class TGunTrainUtility {
 
     const step = (end - start) / count;
     const offset = justify === 'start' ? 0 : justify === 'end' ? step : step / 2;
-    return [...this.range(0, count)].map(i => i * step + start + offset);
+    return [...range(0, count)].map(i => i * step + start + offset);
   }
 
   /**
@@ -39,14 +39,18 @@ export class TGunTrainUtility {
    * TGunTrainUtility.calcNWayAngles(3, 180, "between") // [-90, 0, 90]
    * ```
    */
-  static calcNWayAngles(wayCount: number, totalAngleRad: number, justify: 'around' | 'between' = 'around'): number[] {
+  export function calcNWayAngles(
+    wayCount: number,
+    totalAngleRad: number,
+    justify: 'around' | 'between' = 'around'
+  ): number[] {
     if (wayCount <= 0) return [];
     if (wayCount === 1) return [0];
 
     const actualTotalAngleRad = justify === 'around' ? totalAngleRad / wayCount : totalAngleRad / (wayCount - 1);
     const startAngleRad = -actualTotalAngleRad / 2;
     const distanceAngleRad = actualTotalAngleRad / (wayCount + 1);
-    return [...this.range(0, wayCount)].map(i => i * distanceAngleRad + startAngleRad);
+    return [...range(0, wayCount)].map(i => i * distanceAngleRad + startAngleRad);
   }
 
   /**
@@ -60,12 +64,12 @@ export class TGunTrainUtility {
    * TGunTrainUtility.calcEveryDirectionAngles(4, 0, "center")  // [PI*(1/4), PI*(3/4), PI*(5/4), PI*(7/4)]
    * ```
    */
-  static calcEveryDirectionAngles(
+  export function calcEveryDirectionAngles(
     wayCount: number,
     offset: number,
     justify: 'start' | 'end' | 'center' = 'start'
   ): number[] {
-    return this.calcLinearValues(wayCount, offset, offset + 2 * Math.PI, justify);
+    return calcLinearValues(wayCount, offset, offset + 2 * Math.PI, justify);
   }
 
   /**
@@ -76,7 +80,7 @@ export class TGunTrainUtility {
    * TGunTrainUtility.lerp1, 10, 20) // 20
    * ```
    */
-  static lerp(r: number, min: number, max: number): number {
+  export function lerp(r: number, min: number, max: number): number {
     return r * max + (1 - r) * min;
   }
 
@@ -87,7 +91,7 @@ export class TGunTrainUtility {
    * TGunTrainUtility.toRadians(90) // PI / 2
    * ```
    */
-  static toRadians(degrees: number): number {
+  export function toRadians(degrees: number): number {
     return (degrees / 180) * Math.PI;
   }
 
@@ -98,7 +102,7 @@ export class TGunTrainUtility {
    * TGunTrainUtility.toDegrees(PI / 2) // 90
    * ```
    */
-  static toDegrees(radians: number): number {
+  export function toDegrees(radians: number): number {
     return (radians / Math.PI) * 180;
   }
 
@@ -113,7 +117,7 @@ export class TGunTrainUtility {
    * [...prod] // [[0, "a"], [0, "b"], [1, "a"], [1, "b"], [2, "a"], [2, "b"]]
    * ```
    */
-  static productArray: ProductArray = (<T1, T2, T3, T4>(ary1: T1[], ary2?: T2[], ary3?: T3[], ary4?: T4[]) => {
+  export const productArray: ProductArray = (<T1, T2, T3, T4>(ary1: T1[], ary2?: T2[], ary3?: T3[], ary4?: T4[]) => {
     if (ary2 === undefined) {
       return TProductArray.prodArray1(ary1);
     }

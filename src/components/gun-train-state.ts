@@ -1,60 +1,56 @@
-import {CompiledGun, TCompiledGun} from '../core/compiled-gun';
-import {GunProps, GunTyping, GunValues} from '../core/gun-typing';
+import {Fire, GunTrain} from '../core/gun-train';
+import {GunContext, GunTyping} from '../core/gun-typing';
 
 export type GunTrainState = {
-  nextStartTime: number;
+  currentTimeMs: number;
 };
 
-export type GunTrainFire<Typing extends GunTyping> = {
-  elapsedTimeMs: number;
-  values: GunValues<Typing>;
-};
-
-export class TGunTrainState {
-  static new(): GunTrainState {
-    return {nextStartTime: 0};
+export namespace GunTrainState {
+  export function create(): GunTrainState {
+    return {currentTimeMs: 0};
   }
 
-  static update<Typing extends GunTyping>(
+  export function update<T extends GunTyping>(
     state: GunTrainState,
-    compiledGun: CompiledGun<Typing>,
-    props: GunProps<Typing>,
-    args: {deltaMs: number; loop?: boolean}
-  ): {state: GunTrainState; fires: GunTrainFire<Typing>[]; done: boolean} {
-    if (compiledGun.durationMs <= 0) {
-      return {
-        state,
-        fires: [],
-        done: true,
-      };
+    gunTrain: GunTrain<T>,
+    context: GunContext<T>,
+    deltaMs: number,
+    opt: {loop?: boolean}
+  ): [GunTrainState, {done: boolean; fires: Fire<T>[]}] {
+    if (gunTrain.stopTimeMs <= 0) {
+      return [state, {fires: [], done: true}];
     }
 
-    const startTimeMs = state.nextStartTime;
-    const stopTimeMs = startTimeMs + args.deltaMs;
-    const compiledFires = TCompiledGun.calcFires(compiledGun, props, {startTimeMs, stopTimeMs});
-    const fires = compiledFires.map<GunTrainFire<Typing>>(f => ({
-      elapsedTimeMs: f.globalFireTimeMs - startTimeMs,
-      values: f.values,
-    }));
-
-    const newState = {nextStartTime: stopTimeMs};
-    const done = this.isDone(newState, compiledGun);
-
-    if (done && args.loop === true) {
-      return {
-        state: {nextStartTime: 0},
-        fires,
-        done: false,
-      };
-    }
-    return {
-      state: {nextStartTime: stopTimeMs},
-      fires,
-      done,
-    };
+    return updateInternal(state, [], gunTrain, context, deltaMs, opt);
   }
 
-  static isDone<Typing extends GunTyping>(state: GunTrainState, compiledGun: CompiledGun<Typing>): boolean {
-    return state.nextStartTime >= compiledGun.durationMs;
+  function updateInternal<T extends GunTyping>(
+    state: GunTrainState,
+    prevFires: Fire<T>[],
+    gunTrain: GunTrain<T>,
+    context: GunContext<T>,
+    deltaMs: number,
+    opt: {loop?: boolean}
+  ): [GunTrainState, {done: boolean; fires: Fire<T>[]}] {
+    const loop = opt.loop ?? false;
+
+    const trainPrevTimeMs = state.currentTimeMs;
+    const trainCurrentTimeMs = trainPrevTimeMs + deltaMs;
+    const {done, fires} = GunTrain.calcFires(gunTrain, context, {
+      trainPrevTimeMs,
+      trainCurrentTimeMs,
+    });
+
+    const newState = {currentTimeMs: trainCurrentTimeMs};
+    if (!done || !loop) {
+      return [newState, {done, fires: [...prevFires, ...fires]}];
+    }
+
+    const deltaMsNotConsumed = trainCurrentTimeMs - gunTrain.stopTimeMs;
+    return update(GunTrainState.create(), gunTrain, context, deltaMsNotConsumed, opt);
+  }
+
+  export function isDone<T extends GunTyping>(state: GunTrainState, gunTrain: GunTrain<T>): boolean {
+    return state.currentTimeMs >= gunTrain.stopTimeMs;
   }
 }
