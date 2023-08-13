@@ -2,7 +2,7 @@ export namespace GunTrainUtility {
   /**
    * @example
    * ```ts
-   * [...TGunTrainUtility.range(3, 6)] // [3, 4, 5]
+   * [...GunTrainUtility.range(3, 6)] // [3, 4, 5]
    * ```
    */
   export function range(start: number, stop: number): Iterable<number> {
@@ -12,10 +12,10 @@ export namespace GunTrainUtility {
   /**
    * @example
    * ```ts
-   * TGunTrainUtility.calcLinearValues(3, 1, 10) // [1, 4, 7]
-   * TGunTrainUtility.calcLinearValues(3, 1, 10, "start") // [1, 4, 7]
-   * TGunTrainUtility.calcLinearValues(3, 1, 10, "end") // [4, 7, 10]
-   * TGunTrainUtility.calcLinearValues(3, 1, 10, "center") // [2.5, 5.5, 8.5]
+   * GunTrainUtility.calcLinearValues(3, 1, 10) // [1, 4, 7]
+   * GunTrainUtility.calcLinearValues(3, 1, 10, "start") // [1, 4, 7]
+   * GunTrainUtility.calcLinearValues(3, 1, 10, "end") // [4, 7, 10]
+   * GunTrainUtility.calcLinearValues(3, 1, 10, "center") // [2.5, 5.5, 8.5]
    * ```
    */
   export function calcLinearValues(
@@ -34,9 +34,9 @@ export namespace GunTrainUtility {
   /**
    * @example
    * ```ts
-   * TGunTrainUtility.calcNWayAngles(3, 180) // [-60, 0, 60]
-   * TGunTrainUtility.calcNWayAngles(3, 180, "around") // [-60, 0, 60]
-   * TGunTrainUtility.calcNWayAngles(3, 180, "between") // [-90, 0, 90]
+   * GunTrainUtility.calcNWayAngles(3, 180) // [-60, 0, 60]
+   * GunTrainUtility.calcNWayAngles(3, 180, "around") // [-60, 0, 60]
+   * GunTrainUtility.calcNWayAngles(3, 180, "between") // [-90, 0, 90]
    * ```
    */
   export function calcNWayAngles(
@@ -57,11 +57,11 @@ export namespace GunTrainUtility {
    * @example
    * ```ts
    * const PI = Math.PI;
-   * TGunTrainUtility.calcEveryDirectionAngles(4, 0) // [0, PI*(1/2), PI*(2/2), PI*(3/2)]
-   * TGunTrainUtility.calcEveryDirectionAngles(4, 0, "start") // [0, PI*(1/2), PI*(2/2), PI*(3/2)]
-   * TGunTrainUtility.calcEveryDirectionAngles(4, -PI) // [-PI*(2/2), -PI*(1/2), 0, PI*(1/2)]
-   * TGunTrainUtility.calcEveryDirectionAngles(4, 0, "end") // [PI*(1/2), PI*(2/2), PI*(3/2), PI*(4/2)]
-   * TGunTrainUtility.calcEveryDirectionAngles(4, 0, "center")  // [PI*(1/4), PI*(3/4), PI*(5/4), PI*(7/4)]
+   * GunTrainUtility.calcEveryDirectionAngles(4, 0) // [0, PI*(1/2), PI*(2/2), PI*(3/2)]
+   * GunTrainUtility.calcEveryDirectionAngles(4, 0, "start") // [0, PI*(1/2), PI*(2/2), PI*(3/2)]
+   * GunTrainUtility.calcEveryDirectionAngles(4, -PI) // [-PI*(2/2), -PI*(1/2), 0, PI*(1/2)]
+   * GunTrainUtility.calcEveryDirectionAngles(4, 0, "end") // [PI*(1/2), PI*(2/2), PI*(3/2), PI*(4/2)]
+   * GunTrainUtility.calcEveryDirectionAngles(4, 0, "center")  // [PI*(1/4), PI*(3/4), PI*(5/4), PI*(7/4)]
    * ```
    */
   export function calcEveryDirectionAngles(
@@ -75,9 +75,9 @@ export namespace GunTrainUtility {
   /**
    * @example
    * ```ts
-   * TGunTrainUtility.lerp(0, 10, 20) // 10
-   * TGunTrainUtility.lerp(0.5, 10, 20) // 15
-   * TGunTrainUtility.lerp1, 10, 20) // 20
+   * GunTrainUtility.lerp(0, 10, 20) // 10
+   * GunTrainUtility.lerp(0.5, 10, 20) // 15
+   * GunTrainUtility.lerp1, 10, 20) // 20
    * ```
    */
   export function lerp(r: number, min: number, max: number): number {
@@ -88,7 +88,7 @@ export namespace GunTrainUtility {
    * @example
    * ```ts
    * const PI = Math.PI;
-   * TGunTrainUtility.toRadians(90) // PI / 2
+   * GunTrainUtility.toRadians(90) // PI / 2
    * ```
    */
   export function toRadians(degrees: number): number {
@@ -99,7 +99,7 @@ export namespace GunTrainUtility {
    * @example
    * ```ts
    * const PI = Math.PI;
-   * TGunTrainUtility.toDegrees(PI / 2) // 90
+   * GunTrainUtility.toDegrees(PI / 2) // 90
    * ```
    */
   export function toDegrees(radians: number): number {
@@ -113,7 +113,7 @@ export namespace GunTrainUtility {
    * ```ts
    * const ary1 = [0, 1, 2];
    * const ary2 = ["a", "b"];
-   * const prod = TGunTrainUtility.productArray(ary1, ary2);
+   * const prod = GunTrainUtility.productArray(ary1, ary2);
    * [...prod] // [[0, "a"], [0, "b"], [1, "a"], [1, "b"], [2, "a"], [2, "b"]]
    * ```
    */
