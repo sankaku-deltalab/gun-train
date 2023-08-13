@@ -8,6 +8,6 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "@typescript-eslint/no-namespace": "ignore"
+    "@typescript-eslint/no-namespace": 0
   }
 }
