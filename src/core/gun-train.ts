@@ -21,7 +21,7 @@ export namespace GunTrain {
     firingPeriod: FiringPeriod
   ): {done: boolean; fires: Fire<T>[]} {
     const fires = train.trainUnits.flatMap(trainUnit => TrainUnit.calcFires(trainUnit, context, firingPeriod));
-    const done = firingPeriod.trainCurrentTimeMs > ~train.stopTimeMs;
+    const done = firingPeriod.trainCurrentTimeMs >= train.stopTimeMs;
     return {done, fires};
   }
 }
