@@ -5,7 +5,7 @@ Describer for Bullet hell.
 ## Usage
 
 ```ts
-import {Gun, TGunTrainUtility, GunTrainState} from 'gun-train';
+import {Gun, GunTrainUtility as Util, GunTrainState} from 'gun-train';
 
 // 1. Define gun type
 type GT = DefineGunType<{
@@ -14,8 +14,6 @@ type GT = DefineGunType<{
 }>;
 
 // 2. Build gun
-const Util = TGunTrainUtility;
-
 const gunTrain = pipe(
   Gun.unitToTrain<GT>({
     durationMs: 1000,
