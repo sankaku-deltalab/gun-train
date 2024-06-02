@@ -3,7 +3,7 @@
 {
 	"name": "gun-train",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -15,25 +15,27 @@
 	// "postCreateCommand": "yarn install",
 
 	// Configure tool-specific properties.
-	"customizations": {
-		// Configure properties specific to VS Code.
-		"vscode": {
-			// Add the IDs of extensions you want installed when the container is created.
-			"extensions": [
-				"esbenp.prettier-vscode",
-				"rubbersheep.gi",
-				"mhutchie.git-graph",
-				"eamodio.gitlens",
-				"Orta.vscode-jest",
-				"yzhang.markdown-all-in-one",
-				"bierner.markdown-mermaid",
-				"bpruitt-goddard.mermaid-markdown-syntax-highlighting",
-				"wayou.vscode-todo-highlight",
-				"shardulm94.trailing-spaces",
-				"streetsidesoftware.code-spell-checker"
-			]
-		}
-	}
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "rubbersheep.gi",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "Orta.vscode-jest",
+        "yzhang.markdown-all-in-one",
+        "bierner.markdown-mermaid",
+        "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+        "wayou.vscode-todo-highlight",
+        "shardulm94.trailing-spaces",
+        "streetsidesoftware.code-spell-checker",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ]
+    }
+  }
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
