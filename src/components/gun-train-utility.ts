@@ -47,10 +47,16 @@ export namespace GunTrainUtility {
     if (wayCount <= 0) return [];
     if (wayCount === 1) return [0];
 
-    const actualTotalAngleRad = justify === 'around' ? totalAngleRad * ((wayCount - 1) / wayCount) : totalAngleRad;
-    const startAngleRad = -actualTotalAngleRad / 2;
-    const distanceAngleRad = actualTotalAngleRad / (wayCount + 1);
-    return [...range(0, wayCount)].map(i => i * distanceAngleRad + startAngleRad);
+    const step = justify === 'between' ? totalAngleRad / (wayCount - 1) : totalAngleRad / wayCount;
+
+    const angles = [...range(0, wayCount)].map(i => {
+      if (justify === 'between') {
+        return -totalAngleRad / 2 + step * i;
+      }
+      return -totalAngleRad / 2 + step * (i + 0.5);
+    });
+
+    return angles;
   }
 
   /**
