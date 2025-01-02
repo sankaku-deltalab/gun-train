@@ -33,12 +33,25 @@ const gunTrain = pipe(
   train => Gun.repeat(train, 5)
 );
 
-// 3. Run Gun
-let state = GunTrainState.new();
-const r = GunTrainState.update(state, gunTrain, {rank: 10}, {deltaMs: 1000 / 60});
-r.fires.forEach(fire => {
-  // do firing
-});
-state = r.state;
+// 3-A. Run Gun with state
+{
+  let state = GunTrainState.new();
+  const opt = {loop: false};
+  const r = GunTrainState.update(state, gunTrain, {rank: 10}, {deltaMs: 1000 / 60}, opt);
+  r.fires.forEach(fire => {
+    // do firing
+  });
+  state = r.state;
+}
 
+// 3-B. Run Gun without state
+{
+  const prevTimeMs = 123;
+  const currentTimeMs = 125;
+  const opt = {loop: false};
+  const fires = GunTrain.calcFires(gunTrain, {rank: 10}, prevTimeMs, currentTimeMs, opt);
+  r.fires.forEach(fire => {
+    // do firing
+  });
+}
 ```

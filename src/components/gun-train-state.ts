@@ -34,20 +34,14 @@ export namespace GunTrainState {
   ): [GunTrainState, {done: boolean; fires: Fire<T>[]}] {
     const loop = opt.loop ?? false;
 
-    const trainPrevTimeMs = state.currentTimeMs;
-    const trainCurrentTimeMs = trainPrevTimeMs + deltaMs;
-    const {done, fires} = GunTrain.calcFires(gunTrain, context, {
-      trainPrevTimeMs,
-      trainCurrentTimeMs,
-    });
+    const prevTimeMs = state.currentTimeMs;
+    const currentTimeMs = prevTimeMs + deltaMs;
+    const {done, fires} = GunTrain.calcFires(gunTrain, context, prevTimeMs, state.currentTimeMs, opt);
 
-    const newState = {currentTimeMs: trainCurrentTimeMs};
-    if (!done || !loop) {
-      return [newState, {done, fires: [...prevFires, ...fires]}];
-    }
+    const nextCurrentTimeMs = done ? gunTrain.stopTimeMs : loop ? currentTimeMs % gunTrain.stopTimeMs : currentTimeMs;
+    const newState = {currentTimeMs: nextCurrentTimeMs};
 
-    const deltaMsNotConsumed = trainCurrentTimeMs - gunTrain.stopTimeMs;
-    return update(GunTrainState.create(), gunTrain, context, deltaMsNotConsumed, opt);
+    return [newState, {done, fires: [...prevFires, ...fires]}];
   }
 
   export function isDone<T extends GunTyping>(state: GunTrainState, gunTrain: GunTrain<T>): boolean {
