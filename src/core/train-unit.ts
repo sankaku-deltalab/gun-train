@@ -22,7 +22,7 @@ export namespace TrainUnit {
     return unitArgsArray.flatMap(args => {
       const valuesArray = GunUnit.calcValues(unit.gunUnit, context, args);
       const fireTimeMs = args.unitTimeMs + unit.info.startTimeMs;
-      const elapsedMs = firingPeriod.trainCurrentTimeMs - fireTimeMs;
+      const elapsedMs = firingPeriod.trainStopTimeMs - fireTimeMs;
       return valuesArray.map(v => ({
         fireTimeMs,
         elapsedMs,
@@ -54,8 +54,8 @@ export namespace TrainUnit {
       fireTimes,
     }));
 
-    const unitTimeMsMin = firingPeriod.trainPrevTimeMs - unit.info.startTimeMs;
-    const unitTimeMsMax = firingPeriod.trainCurrentTimeMs - unit.info.startTimeMs;
+    const unitTimeMsMin = firingPeriod.trainStartTimeMs - unit.info.startTimeMs;
+    const unitTimeMsMax = firingPeriod.trainStopTimeMs - unit.info.startTimeMs;
 
     return allUnitArgs.filter(args => args.unitTimeMs >= unitTimeMsMin && args.unitTimeMs < unitTimeMsMax);
   }
